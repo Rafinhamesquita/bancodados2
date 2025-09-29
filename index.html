@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Gelato Premium</title>
+
+  <!-- Tailwind (CDN, bom para protótipo) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#ff4da6',
+            primaryDark: '#e6005c',
+            accent: '#ffd6e8',
+            bg: '#fff8f6'
+          },
+          boxShadow: {
+            'lg-soft': '0 12px 30px rgba(0,0,0,0.08)',
+            'lift': '0 18px 40px rgba(0,0,0,0.12)'
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+
+  <style>
+    html { scroll-behavior: smooth; }
+    .fade-in { opacity: 0; transform: translateY(18px); transition: opacity .6s ease, transform .6s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+    .gradient-border {
+      background: linear-gradient(90deg, rgba(255,77,166,0.95), rgba(230,0,92,0.95));
+      padding: 2px;
+      border-radius: 18px;
+    }
+    .floating { animation: floating 3s ease-in-out infinite; }
+    @keyframes floating {
+      0% { transform: translate(0, 0px); }
+      50% { transform: translate(0, -10px); }
+      100% { transform: translate(0, 0px); }
+    }
+    .pulse { animation: pulse 2s infinite; }
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+    .flavor-tag {
+      display: inline-block;
+      background: rgba(255, 77, 166, 0.1);
+      color: #ff4da6;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 12px;
+      margin: 2px;
+    }
+    .hero-overlay {
+      background: linear-gradient(135deg, rgba(255,77,166,0.7) 0%, rgba(230,0,92,0.7) 100%);
+    }
+    .flavor-image {
+      transition: transform 0.3s ease;
+    }
+    .flavor-image:hover {
+      transform: scale(1.1);
+    }
+    .star-rating {
+      color: #ffd700;
+      font-size: 1.2rem;
+    }
+    .review-card {
+      border-left: 4px solid #ff4da6;
+    }
+  </style>
+</head>
+<body class="bg-bg text-gray-800 antialiased">
+
+  <!-- HEADER -->
+
+  <a href="#cardapio" class="hover:text-pink-600">Cardápio</a>
+
+  <header class="fixed top-0 left-0 right-0 z-50">
+    <div class="backdrop-blur-md bg-white/40 border-b">
+      <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+        <a href="#inicio" class="flex items-center gap-3">
+          <img src="https://cdn-icons-png.flaticon.com/512/415/415733.png" alt="logo" class="w-10 h-10 floating" />
+          <span class="font-bold text-lg text-primary">Gelato Premium</span>
+        </a>
+
+        <!-- Desktop nav -->
+        <nav class="hidden md:block">
+          <ul class="flex gap-8 items-center font-medium">
+            <li><a class="hover:text-primary transition-colors" href="#sobre">Sobre</a></li>
+            <li><a class="hover:text-primary transition-colors" href="#produtos">Produtos</a></li>
+            <li><a class="hover:text-primary transition-colors" href="#avaliacoes">Avaliações</a></li>
+            <li><a class="hover:text-primary transition-colors" href="#contato">Contato</a></li>
+          </ul>
+        </nav>
+
+        <!-- Mobile toggle -->
+        <div class="md:hidden flex items-center gap-2">
+          <button id="btnMobile" aria-label="Abrir menu" class="p-2 rounded text-primary">
+            <i id="iconMobile" class="fas fa-bars text-2xl"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile menu (hidden by default) -->
+      <div id="mobileMenu" class="md:hidden hidden border-t bg-white/95">
+        <ul class="flex flex-col px-4 py-3">
+          <li><a class="block py-2 hover:text-primary transition-colors" href="#sobre">Sobre</a></li>
+          <li><a class="block py-2 hover:text-primary transition-colors" href="#produtos">Produtos</a></li>
+          <li><a class="block py-2 hover:text-primary transition-colors" href="#avaliacoes">Avaliações</a></li>
+          <li><a class="block py-2 hover:text-primary transition-colors" href="#contato">Contato</a></li>
+        </ul>
+      </div>
+    </div>
+  </header>
+
+  <main class="pt-24">
+
+    <!-- HERO -->
+    <section id="inicio" class="relative min-h-[78vh] flex items-center">
+      <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1600&q=80')] bg-cover bg-center"></div>
+      <div class="absolute inset-0 hero-overlay"></div>
+
+      <div class="relative z-10 max-w-6xl mx-auto px-6 text-center text-white">
+        <h1 class="text-4xl md:text-6xl font-extrabold leading-tight drop-shadow-lg">Gelato Premium</h1>
+        <p class="mt-4 text-lg md:text-xl max-w-2xl mx-auto drop-shadow">Sabores artesanais que despertam memórias — direto do coração de Paranaguá.</p>
+
+        <div class="mt-8 flex flex-wrap justify-center gap-4">
+          <a href="#produtos" class="inline-flex items-center gap-2 bg-white text-primary font-semibold px-6 py-3 rounded-full shadow-lg hover:scale-105 transform transition pulse">Ver Produtos <i class="fas fa-ice-cream"></i></a>
+          <a href="#avaliacoes" class="inline-flex items-center gap-2 border-2 border-white text-white px-6 py-3 rounded-full hover:bg-white/10 transition">Ver Avaliações <i class="fas fa-star"></i></a>
+        </div>
+        
+        <!-- Floating flavor tags -->
+        <div class="mt-12 flex flex-wrap justify-center gap-2">
+          <span class="flavor-tag">Morango Premium</span>
+          <span class="flavor-tag">Chocolate Belga</span>
+          <span class="flavor-tag">Creme & Baunilha</span>
+          <span class="flavor-tag">Pistache Especial</span>
+          <span class="flavor-tag">+10 Sabores</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- SOBRE -->
+    <section id="sobre" class="py-20">
+      <div class="max-w-6xl mx-auto px-6 text-center">
+        <h2 class="text-3xl font-bold text-primary">Sobre Nós</h2>
+        <p class="mt-4 text-gray-600 max-w-3xl mx-auto">Desde 2018, a Gelato Premium traz o autêntico gelato italiano para o litoral do Paraná. Produzimos sabores artesanais com ingredientes selecionados — qualidade e carinho em cada colher.</p>
+
+        <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div class="p-6 bg-white rounded-xl shadow-lg hover:shadow-xl transition fade-in">
+            <div class="w-14 h-14 flex items-center justify-center bg-accent text-primary rounded-full mx-auto mb-4">
+              <i class="fas fa-leaf text-2xl"></i>
+            </div>
+            <h3 class="font-semibold">Ingredientes Naturais</h3>
+            <p class="mt-2 text-gray-600 text-sm">Frutas frescas e matérias-primas selecionadas.</p>
+          </div>
+
+          <div class="p-6 bg-white rounded-xl shadow-lg hover:shadow-xl transition fade-in">
+            <div class="w-14 h-14 flex items-center justify-center bg-accent text-primary rounded-full mx-auto mb-4">
+              <i class="fas fa-heart text-2xl"></i>
+            </div>
+            <h3 class="font-semibold">Feito com Amor</h3>
+            <p class="mt-2 text-gray-600 text-sm">Cada receita preparada artesanalmente.</p>
+          </div>
+
+          <div class="p-6 bg-white rounded-xl shadow-lg hover:shadow-xl transition fade-in">
+            <div class="w-14 h-14 flex items-center justify-center bg-accent text-primary rounded-full mx-auto mb-4">
+              <i class="fas fa-award text-2xl"></i>
+            </div>
+            <h3 class="font-semibold">Qualidade Premium</h3>
+            <p class="mt-2 text-gray-600 text-sm">Reconhecidos pela excelência local.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRODUTOS -->
+    <section id="produtos" class="py-20 bg-gray-50">
+      <div class="max-w-6xl mx-auto px-6">
+        <h2 class="text-3xl font-bold text-primary text-center">Nossos Produtos</h2>
+        <p class="mt-2 text-gray-600 text-center max-w-2xl mx-auto">Conheça nossos sabores exclusivos feitos com os melhores ingredientes</p>
+
+        <div id="productsContainer" class="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          <!-- Produtos serão carregados aqui -->
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ===== SEÇÃO CARDÁPIO PDF ===== -->
+<section id="cardapio" class="py-20 bg-gray-50">
+  <div class="max-w-6xl mx-auto px-6 lg:px-12 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+    
+    <!-- Preview do Cardápio -->
+    <div class="flex justify-center">
+      <img src="cardápio.png" alt="Prévia do Cardápio" class="rounded-2xl shadow-lg w-80">
+    </div>
+
+    <!-- Informações do Cardápio -->
+    <div>
+      <h2 class="text-3xl font-bold text-pink-600 mb-4">Nosso Cardápio</h2>
+      <p class="text-gray-600 mb-6">
+        Confira todos os nossos sabores exclusivos, combos e sobremesas especiais no nosso cardápio digital em PDF.
+      </p>
+
+      <div class="flex gap-4">
+        <a href="docs/cardapio.pdf" download 
+           class="bg-pink-600 hover:bg-pink-700 text-white px-5 py-3 rounded-lg shadow">
+          📥 Baixar PDF
+        </a>
+        <a href="cardápio.pdf" target="_blank" 
+           class="border border-pink-600 text-pink-600 hover:bg-pink-50 px-5 py-3 rounded-lg shadow">
+          👁 Visualizar Online
+        </a>
+      </div>
+
+      <!-- Estatísticas opcionais -->
+      <div class="mt-8 grid grid-cols-3 gap-6 text-center">
+        <div>
+          <p class="text-2xl font-bold text-pink-600">+50</p>
+          <p class="text-gray-500 text-sm">Sabores</p>
+        </div>
+        <div>
+          <p class="text-2xl font-bold text-pink-600">+20</p>
+          <p class="text-gray-500 text-sm">Combos</p>
+        </div>
+        <div>
+          <p class="text-2xl font-bold text-pink-600">100%</p>
+          <p class="text-gray-500 text-sm">Artesanal</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+    <!-- AVALIAÇÕES -->
+    <section id="avaliacoes" class="py-20">
+      <div class="max-w-6xl mx-auto px-6">
+        <h2 class="text-3xl font-bold text-primary text-center">Avaliações dos Clientes</h2>
+        <p class="mt-2 text-gray-600 text-center max-w-2xl mx-auto">O que nossos clientes dizem sobre a experiência Gelato Premium</p>
+
+        <div class="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- Avaliações serão carregadas aqui -->
+        </div>
+
+        <!-- Formulário de Avaliação -->
+        <div class="mt-16 max-w-2xl mx-auto bg-white p-8 rounded-xl shadow-lg">
+          <h3 class="text-2xl font-bold text-primary text-center">Deixe sua Avaliação</h3>
+          <form id="reviewForm" class="mt-6 space-y-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <input type="text" name="name" required placeholder="Seu nome" 
+                     class="w-full border rounded-full px-4 py-2 focus:ring-2 focus:ring-primary outline-none">
+              <input type="email" name="email" required placeholder="Seu e-mail" 
+                     class="w-full border rounded-full px-4 py-2 focus:ring-2 focus:ring-primary outline-none">
+            </div>
+            
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Avaliação</label>
+              <div class="flex gap-1 mb-2" id="starRating">
+                <i class="far fa-star text-2xl text-yellow-400 cursor-pointer" data-rating="1"></i>
+                <i class="far fa-star text-2xl text-yellow-400 cursor-pointer" data-rating="2"></i>
+                <i class="far fa-star text-2xl text-yellow-400 cursor-pointer" data-rating="3"></i>
+                <i class="far fa-star text-2xl text-yellow-400 cursor-pointer" data-rating="4"></i>
+                <i class="far fa-star text-2xl text-yellow-400 cursor-pointer" data-rating="5"></i>
+              </div>
+              <input type="hidden" name="rating" id="ratingValue" required>
+            </div>
+
+            <select name="product" class="w-full border rounded-full px-4 py-2 focus:ring-2 focus:ring-primary outline-none">
+              <option value="">Selecione o sabor</option>
+              <option value="Morango Premium">Morango Premium</option>
+              <option value="Chocolate Belga">Chocolate Belga</option>
+              <option value="Creme & Baunilha">Creme & Baunilha</option>
+              <option value="Pistache Especial">Pistache Especial</option>
+              <option value="Outro">Outro</option>
+            </select>
+
+            <textarea name="review" required rows="4" placeholder="Conte sua experiência..." 
+                      class="w-full border rounded-2xl px-4 py-2 focus:ring-2 focus:ring-primary outline-none"></textarea>
+
+            <button type="submit" class="w-full bg-primary text-white py-3 rounded-full font-semibold hover:bg-primaryDark transition">
+              Enviar Avaliação
+            </button>
+          </form>
+          <div id="reviewFeedback" class="mt-4 text-sm text-center opacity-0 transition-opacity"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTATO -->
+    <section id="contato" class="py-20 bg-gray-50">
+      <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-12">
+        <div>
+          <h2 class="text-3xl font-bold text-primary">Contato</h2>
+          <p class="mt-4 text-gray-600">Fale conosco para encomendas, eventos ou sugestões. Responderemos em até 24 horas.</p>
+
+          <div class="mt-8 space-y-4">
+            <div class="flex items-center gap-4">
+              <i class="fas fa-phone text-primary text-2xl"></i>
+              <div><div class="font-semibold">Telefone</div><div class="text-gray-600">(41) 3422-1234</div></div>
+            </div>
+
+            <div class="flex items-center gap-4">
+              <i class="fas fa-map-marker-alt text-primary text-2xl"></i>
+              <div><div class="font-semibold">Endereço</div><div class="text-gray-600">Rua XV de Novembro, 123 — Paranaguá - PR</div></div>
+            </div>
+
+            <div class="flex items-center gap-4">
+              <i class="fas fa-share-alt text-primary text-2xl"></i>
+              <div><div class="font-semibold">Redes</div><div class="text-gray-600">Siga-nos: <a class="text-primary" href="https://www.instagram.com/rafinha_3ysk/" target="_blank">@rafinha_3ysk</a></div></div>
+            </div>
+          </div>
+        </div>
+
+        <form id="contactForm" class="bg-white p-6 rounded-xl shadow space-y-4">
+          <h3 class="font-semibold text-lg">Enviar mensagem</h3>
+          <input name="name" required class="w-full border rounded-full px-4 py-2 focus:ring-2 focus:ring-primary outline-none" placeholder="Seu nome" />
+          <input name="email" type="email" required class="w-full border rounded-full px-4 py-2 focus:ring-2 focus:ring-primary outline-none" placeholder="Seu e-mail" />
+          <textarea name="message" required rows="5" class="w-full border rounded-2xl px-4 py-2 focus:ring-2 focus:ring-primary outline-none" placeholder="Escreva sua mensagem"></textarea>
+          <div class="flex gap-3">
+            <button type="submit" class="bg-primary text-white px-6 py-2 rounded-full font-semibold hover:scale-105 transition">Enviar</button>
+            <button type="button" id="btnClear" class="border px-6 py-2 rounded-full">Limpar</button>
+          </div>
+          <div id="contactFeedback" class="text-sm text-green-600 opacity-0 transition-opacity">Mensagem enviada!</div>
+        </form>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="py-6 text-center bg-white shadow-inner">
+      <div class="text-sm text-gray-500">&copy; <span id="year"></span> Gelato Premium — Paranaguá - PR</div>
+    </footer>
+
+  </main>
+
+  <!-- MODAL PRODUTO -->
+  <div id="productModal" class="fixed inset-0 hidden items-center justify-center z-50 bg-black/40">
+    <div class="bg-white rounded-xl p-6 w-[90%] max-w-md shadow-xl relative">
+      <button id="closeModal" class="absolute top-3 right-3 text-primary text-xl"><i class="fas fa-times"></i></button>
+      <img id="modalImage" class="w-32 h-32 mx-auto object-contain" />
+      <h3 id="modalTitle" class="text-xl font-bold text-center mt-4"></h3>
+      <p id="modalPrice" class="text-center text-gray-600 mt-2"></p>
+      <div class="mt-4 flex justify-center gap-2" id="modalTags"></div>
+      <div class="mt-6 flex justify-center">
+        <button id="btnClose" class="px-6 py-2 bg-primary text-white rounded-full hover:bg-primaryDark transition">Fechar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAINEL ADMIN -->
+  <div id="adminPanel" class="fixed bottom-4 left-4 z-50">
+    <button id="adminToggle" class="bg-primary text-white p-3 rounded-full shadow-lg">
+      <i class="fas fa-cog"></i>
+    </button>
+    
+    <div id="adminMenu" class="hidden absolute bottom-14 left-0 bg-white p-4 rounded-lg shadow-xl w-80">
+      <h3 class="font-bold text-primary mb-3">Admin - Adicionar Produto</h3>
+      
+      <form id="addProductForm" class="space-y-3">
+        <input type="text" id="productName" placeholder="Nome do produto" 
+               class="w-full border rounded px-3 py-2 text-sm" required>
+        <input type="number" step="0.01" id="productPrice" placeholder="Preço" 
+               class="w-full border rounded px-3 py-2 text-sm" required>
+        <input type="text" id="productImage" placeholder="URL da imagem" 
+               class="w-full border rounded px-3 py-2 text-sm" required>
+        <input type="text" id="productTags" placeholder="Tags (separar por vírgula)" 
+               class="w-full border rounded px-3 py-2 text-sm" required>
+        <textarea id="productDescription" placeholder="Descrição" 
+                  class="w-full border rounded px-3 py-2 text-sm" rows="2" required></textarea>
+        
+        <button type="submit" class="w-full bg-primary text-white py-2 rounded text-sm">
+          Adicionar Produto
+        </button>
+      </form>
+      
+      <div class="mt-3 pt-3 border-t">
+        <button id="btnAddSample" class="w-full bg-gray-500 text-white py-2 rounded text-sm mb-2">
+          Adicionar Produtos Exemplo
+        </button>
+        <button id="btnTestConnection" class="w-full bg-blue-500 text-white py-2 rounded text-sm mb-2">
+          Testar Conexão Firebase
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCRIPTS -->
+  <script type="module">
+    /* =======================
+       FIREBASE (modular SDK)
+       ======================= */
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-analytics.js";
+    import { 
+      getFirestore, 
+      collection, 
+      addDoc, 
+      getDocs,
+      serverTimestamp
+    } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCEqXgaskGLnz6-rOSwzOnS5MKxYUu8Rdo",
+      authDomain: "sorveteria-ice-gelato-8f42b.firebaseapp.com",
+      projectId: "sorveteria-ice-gelato-8f42b",
+      storageBucket: "sorveteria-ice-gelato-8f42b.firebasestorage.app",
+      messagingSenderId: "368064435657",
+      appId: "1:368064435657:web:7bfef49e4e1e500c084418",
+      measurementId: "G-0Y0L208LTZ"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    /* =======================
+       FUNÇÕES PRINCIPAIS
+       ======================= */
+
+    // Testa conexão com Firebase
+    async function testFirebaseConnection() {
+      try {
+        console.log("🔗 Testando conexão com Firebase...");
+        const testCollection = collection(db, 'test');
+        await getDocs(testCollection);
+        console.log("✅ Conexão com Firebase estabelecida!");
+        return true;
+      } catch (error) {
+        console.error("❌ Erro na conexão Firebase:", error);
+        return false;
+      }
+    }
+
+    // Carrega produtos do Firebase (SEM ordenação para evitar erro de índice)
+    async function loadProducts() {
+      const productsContainer = document.getElementById('productsContainer');
+      
+      try {
+        console.log("📥 Carregando produtos do Firebase...");
+        const querySnapshot = await getDocs(collection(db, 'products'));
+        
+        if (querySnapshot.empty) {
+          productsContainer.innerHTML = `
+            <div class="col-span-full text-center py-12">
+              <i class="fas fa-ice-cream text-4xl text-primary mb-4"></i>
+              <p class="text-gray-600">Nenhum produto cadastrado ainda.</p>
+              <p class="text-sm text-gray-500 mt-2">Use o painel admin (canto inferior esquerdo) para adicionar produtos.</p>
+            </div>
+          `;
+          return;
+        }
+        
+        let productsHTML = '';
+        querySnapshot.forEach((doc) => {
+          const product = doc.data();
+          productsHTML += createProductCard(product, doc.id);
+        });
+        
+        productsContainer.innerHTML = productsHTML;
+        console.log(`✅ ${querySnapshot.size} produtos carregados do Firebase`);
+        
+        // Reconecta os event listeners
+        document.querySelectorAll('.product-card').forEach(card => {
+          card.addEventListener('click', () => openProductModal(card));
+        });
+        
+      } catch (error) {
+        console.error("❌ Erro ao carregar produtos:", error);
+        productsContainer.innerHTML = `
+          <div class="col-span-full text-center py-12 text-red-600">
+            <i class="fas fa-exclamation-triangle text-4xl mb-4"></i>
+            <p>Erro ao carregar produtos: ${error.message}</p>
+            <p class="text-sm">Verifique as regras de segurança do Firebase.</p>
+          </div>
+        `;
+      }
+    }
+
+    // Cria card de produto
+    function createProductCard(product, id) {
+      return `
+        <div class="gradient-border fade-in">
+          <div class="bg-white rounded-xl p-6 shadow-lg-soft hover:shadow-lift transform transition duration-300 product-card cursor-pointer" 
+               data-price="R$ ${product.price.toFixed(2).replace('.', ',')}" 
+               data-name="${product.name}" 
+               data-image="${product.image}"
+               data-id="${id}">
+            <img src="${product.image}" class="w-24 h-24 mx-auto flavor-image" alt="${product.name}">
+            <h3 class="mt-4 font-semibold text-center">${product.name}</h3>
+            <p class="mt-2 text-center text-gray-600">R$ ${product.price.toFixed(2).replace('.', ',')}</p>
+            <div class="mt-3 flex justify-center flex-wrap gap-1">
+              ${product.tags ? product.tags.map(tag => `<span class="flavor-tag">${tag}</span>`).join('') : ''}
+            </div>
+            ${product.description ? `<p class="mt-2 text-xs text-gray-500 text-center">${product.description}</p>` : ''}
+          </div>
+        </div>
+      `;
+    }
+
+    // Adiciona produtos de exemplo
+    async function addSampleProducts() {
+      const sampleProducts = [
+        {
+          name: "Morango Premium",
+          price: 12.00,
+          image: "https://cdn-icons-png.flaticon.com/512/415/415733.png",
+          tags: ["Frutas", "Doce", "Natural"],
+          description: "Feito com morangos frescos selecionados",
+          category: "frutas",
+          available: true
+        },
+        {
+          name: "Chocolate Belga",
+          price: 14.00,
+          image: "https://cdn-icons-png.flaticon.com/512/1046/1046784.png",
+          tags: ["Chocolate", "Premium", "Cremoso"],
+          description: "Chocolate belga autêntico e cremoso",
+          category: "chocolate", 
+          available: true
+        },
+        {
+          name: "Creme & Baunilha",
+          price: 13.50,
+          image: "https://cdn-icons-png.flaticon.com/512/3075/3075977.png",
+          tags: ["Clássico", "Cremoso", "Baunilha"],
+          description: "O clássico irresistível da baunilha",
+          category: "clássicos",
+          available: true
+        }
+      ];
+
+      try {
+        console.log("🔄 Adicionando produtos de exemplo...");
+        
+        for (const product of sampleProducts) {
+          await addDoc(collection(db, 'products'), {
+            ...product,
+            createdAt: serverTimestamp()
+          });
+        }
+        
+        console.log("✅ Produtos de exemplo adicionados!");
+        alert("🎉 Produtos adicionados com sucesso! Recarregue a página para ver.");
+        
+      } catch (error) {
+        console.error("❌ Erro ao adicionar produtos:", error);
+        alert(`❌ Erro ao adicionar produtos: ${error.message}\n\nVerifique as regras de segurança do Firebase.`);
+      }
+    }
+
+    // Adiciona um produto individual
+    async function addProduct(productData) {
+      try {
+        await addDoc(collection(db, 'products'), {
+          ...productData,
+          createdAt: serverTimestamp()
+        });
+        return true;
+      } catch (error) {
+        console.error("Erro ao adicionar produto:", error);
+        throw error;
+      }
+    }
+
+    // Sistema de estrelas para avaliações
+    function initStarRating() {
+      const stars = document.querySelectorAll('#starRating i');
+      const ratingValue = document.getElementById('ratingValue');
+      
+      stars.forEach(star => {
+        star.addEventListener('mouseover', function() {
+          const rating = this.dataset.rating;
+          highlightStars(rating);
+        });
+        
+        star.addEventListener('click', function() {
+          const rating = this.dataset.rating;
+          ratingValue.value = rating;
+          highlightStars(rating);
+          stars.forEach(s => s.classList.replace('far', 'fas'));
+        });
+      });
+      
+      document.getElementById('starRating').addEventListener('mouseleave', function() {
+        const currentRating = ratingValue.value;
+        if (currentRating) {
+          highlightStars(currentRating);
+        } else {
+          stars.forEach(star => star.classList.replace('fas', 'far'));
+        }
+      });
+    }
+    
+    function highlightStars(rating) {
+      const stars = document.querySelectorAll('#starRating i');
+      stars.forEach(star => {
+        if (star.dataset.rating <= rating) {
+          star.classList.replace('far', 'fas');
+        } else {
+          star.classList.replace('fas', 'far');
+        }
+      });
+    }
+
+    // Modal de produto
+    function openProductModal(card) {
+      const modalImage = document.getElementById('modalImage');
+      const modalTitle = document.getElementById('modalTitle');
+      const modalPrice = document.getElementById('modalPrice');
+      const modalTags = document.getElementById('modalTags');
+      const productModal = document.getElementById('productModal');
+      
+      modalImage.src = card.dataset.image;
+      modalTitle.innerText = card.dataset.name;
+      modalPrice.innerText = card.dataset.price;
+      
+      modalTags.innerHTML = '';
+      const tags = card.querySelectorAll('.flavor-tag');
+      tags.forEach(tag => {
+        const tagClone = tag.cloneNode(true);
+        modalTags.appendChild(tagClone);
+      });
+      
+      productModal.classList.remove('hidden');
+      productModal.classList.add('flex');
+    }
+    
+    function closeProductModal() {
+      const productModal = document.getElementById('productModal');
+      productModal.classList.add('hidden');
+      productModal.classList.remove('flex');
+    }
+
+    // Painel Admin
+    function initAdminPanel() {
+      const adminToggle = document.getElementById('adminToggle');
+      const adminMenu = document.getElementById('adminMenu');
+      const addProductForm = document.getElementById('addProductForm');
+      const btnAddSample = document.getElementById('btnAddSample');
+      const btnTestConnection = document.getElementById('btnTestConnection');
+      
+      adminToggle.addEventListener('click', () => {
+        adminMenu.classList.toggle('hidden');
+      });
+      
+      addProductForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const productData = {
+          name: document.getElementById('productName').value,
+          price: parseFloat(document.getElementById('productPrice').value),
+          image: document.getElementById('productImage').value,
+          tags: document.getElementById('productTags').value.split(',').map(tag => tag.trim()),
+          description: document.getElementById('productDescription').value,
+          category: "frutas",
+          available: true
+        };
+        
+        try {
+          await addProduct(productData);
+          alert('✅ Produto adicionado com sucesso!');
+          addProductForm.reset();
+          adminMenu.classList.add('hidden');
+          await loadProducts();
+        } catch (error) {
+          alert(`❌ Erro ao adicionar produto: ${error.message}`);
+        }
+      });
+
+      btnAddSample.addEventListener('click', async () => {
+        await addSampleProducts();
+      });
+
+      btnTestConnection.addEventListener('click', async () => {
+        const isConnected = await testFirebaseConnection();
+        if (isConnected) {
+          alert('✅ Conexão com Firebase estabelecida com sucesso!');
+        } else {
+          alert('❌ Erro na conexão com Firebase. Verifique o console.');
+        }
+      });
+    }
+
+    // Configurações de UI
+    function setupUI() {
+      // Mobile menu
+      const btnMobile = document.getElementById('btnMobile');
+      const mobileMenu = document.getElementById('mobileMenu');
+      const iconMobile = document.getElementById('iconMobile');
+      
+      btnMobile.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+        iconMobile.classList.toggle('fa-bars');
+        iconMobile.classList.toggle('fa-times');
+      });
+
+      // Close mobile menu on link click
+      mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+        iconMobile.classList.remove('fa-times');
+        iconMobile.classList.add('fa-bars');
+      }));
+
+      // Modal events
+      document.getElementById('closeModal').addEventListener('click', closeProductModal);
+      document.getElementById('btnClose').addEventListener('click', closeProductModal);
+      window.addEventListener('click', (e) => { 
+        if (e.target === document.getElementById('productModal')) closeProductModal();
+      });
+
+      // Smooth scroll
+      document.querySelectorAll('a[href^="#"]').forEach(a => {
+        a.addEventListener('click', function(e) {
+          const href = this.getAttribute('href'); 
+          if (!href.startsWith('#')) return;
+          
+          const id = href.slice(1); 
+          const target = document.getElementById(id); 
+          if (!target) return;
+          
+          e.preventDefault();
+          const headerH = document.querySelector('header').offsetHeight;
+          const top = target.getBoundingClientRect().top + window.pageYOffset - headerH - 12;
+          
+          window.scrollTo({ top, behavior: 'smooth' });
+          
+          if (!mobileMenu.classList.contains('hidden')) {
+            mobileMenu.classList.add('hidden');
+            iconMobile.classList.remove('fa-times');
+            iconMobile.classList.add('fa-bars');
+          }
+        });
+      });
+
+      // IntersectionObserver para animações
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => { 
+          if (entry.isIntersecting) entry.target.classList.add('visible'); 
+        });
+      }, { threshold: 0.12 });
+      
+      document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    }
+
+    // Formulário de contato
+    function setupContactForm() {
+      const contactForm = document.getElementById('contactForm');
+      const contactFeedback = document.getElementById('contactFeedback');
+      const btnClear = document.getElementById('btnClear');
+      
+      contactForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const form = e.target;
+        const name = form.name.value.trim();
+        const email = form.email.value.trim();
+        const message = form.message.value.trim();
+        
+        if (!name || !email || !message) return;
+
+        const submitBtn = form.querySelector('button[type="submit"]');
+        const originalText = submitBtn.innerHTML;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
+        submitBtn.disabled = true;
+
+        try {
+          // Simula envio
+          await new Promise(resolve => setTimeout(resolve, 1000));
+          
+          contactFeedback.textContent = '✅ Mensagem enviada com sucesso!';
+          contactFeedback.className = 'text-sm text-green-600 transition-opacity';
+          contactFeedback.style.opacity = '1';
+          
+          form.reset();
+          
+          setTimeout(() => { 
+            contactFeedback.style.opacity = '0'; 
+          }, 4000);
+          
+        } catch (err) {
+          contactFeedback.textContent = '❌ Erro ao enviar. Tente novamente.';
+          contactFeedback.className = 'text-sm text-red-600 transition-opacity';
+          contactFeedback.style.opacity = '1';
+          
+          setTimeout(() => { 
+            contactFeedback.style.opacity = '0'; 
+          }, 4000);
+        } finally {
+          submitBtn.innerHTML = originalText;
+          submitBtn.disabled = false;
+        }
+      });
+      
+      btnClear.addEventListener('click', () => contactForm.reset());
+    }
+
+    // Formulário de avaliação
+    function setupReviewForm() {
+      const reviewForm = document.getElementById('reviewForm');
+      const reviewFeedback = document.getElementById('reviewFeedback');
+      
+      reviewForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const form = e.target;
+        const name = form.name.value.trim();
+        const email = form.email.value.trim();
+        const rating = form.rating.value;
+        const product = form.product.value;
+        const review = form.review.value.trim();
+        
+        if (!name || !email || !rating || !product || !review) {
+          reviewFeedback.textContent = '❌ Preencha todos os campos!';
+          reviewFeedback.className = 'text-sm text-red-600 transition-opacity';
+          reviewFeedback.style.opacity = '1';
+          setTimeout(() => { reviewFeedback.style.opacity = '0'; }, 4000);
+          return;
+        }
+
+        const submitBtn = form.querySelector('button[type="submit"]');
+        const originalText = submitBtn.innerHTML;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
+        submitBtn.disabled = true;
+
+        try {
+          // Simula envio
+          await new Promise(resolve => setTimeout(resolve, 1000));
+          
+          reviewFeedback.textContent = '✅ Avaliação enviada com sucesso! Obrigado.';
+          reviewFeedback.className = 'text-sm text-green-600 transition-opacity';
+          reviewFeedback.style.opacity = '1';
+          
+          form.reset();
+          document.querySelectorAll('#starRating i').forEach(star => {
+            star.classList.replace('fas', 'far');
+          });
+          document.getElementById('ratingValue').value = '';
+          
+          setTimeout(() => { 
+            reviewFeedback.style.opacity = '0'; 
+          }, 4000);
+          
+        } catch (err) {
+          reviewFeedback.textContent = '❌ Erro ao enviar avaliação. Tente novamente.';
+          reviewFeedback.className = 'text-sm text-red-600 transition-opacity';
+          reviewFeedback.style.opacity = '1';
+          
+          setTimeout(() => { 
+            reviewFeedback.style.opacity = '0'; 
+          }, 4000);
+        } finally {
+          submitBtn.innerHTML = originalText;
+          submitBtn.disabled = false;
+        }
+      });
+    }
+
+    /* =======================
+       INICIALIZAÇÃO
+       ======================= */
+    document.addEventListener('DOMContentLoaded', async () => {
+      console.log("🚀 Inicializando Gelato Premium...");
+      
+      // Preenche o ano no footer
+      document.getElementById('year').innerText = new Date().getFullYear();
+      
+      // Testa conexão primeiro
+      await testFirebaseConnection();
+      
+      // Carrega produtos
+      await loadProducts();
+      
+      // Inicializa sistema de estrelas
+      initStarRating();
+      
+      // Configura UI
+      setupUI();
+      
+      // Inicializa painel admin
+      initAdminPanel();
+      
+      console.log("🎉 Sistema inicializado com sucesso!");
+    });
+
+  </script>
+</body>
+</html>
