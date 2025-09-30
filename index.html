@@ -80,7 +80,6 @@
 <body class="bg-bg text-gray-800 antialiased">
 
   <!-- HEADER -->
-
   <header class="fixed top-0 left-0 right-0 z-50">
     <div class="backdrop-blur-md bg-white/40 border-b">
       <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
@@ -97,7 +96,6 @@
             <li><a class="hover:text-primary transition-colors" href="#cardapio">Cardápio</a></li>
             <li><a class="hover:text-primary transition-colors" href="#avaliacoes">Avaliações</a></li>
             <li><a class="hover:text-primary transition-colors" href="#contato">Contato</a></li>
-            
           </ul>
         </nav>
 
@@ -194,57 +192,53 @@
       </div>
     </section>
 
+    <!-- CARDÁPIO PDF -->
+    <section id="cardapio" class="py-20 bg-gray-50">
+      <div class="max-w-6xl mx-auto px-6 lg:px-12 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+        
+        <!-- Preview do Cardápio -->
+        <div class="flex justify-center">
+          <img src="ICE GELATO.png" alt="Prévia do Cardápio" class="rounded-2xl shadow-lg w-80">
+        </div>
 
-    <!-- ===== SEÇÃO CARDÁPIO PDF ===== -->
-<section id="cardapio" class="py-20 bg-gray-50">
-  <div class="max-w-6xl mx-auto px-6 lg:px-12 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-    
-    <!-- Preview do Cardápio -->
-    <div class="flex justify-center">
-      <img src="ICE GELATO.png" alt="Prévia do Cardápio" class="rounded-2xl shadow-lg w-80">
-    </div>
+        <!-- Informações do Cardápio -->
+        <div>
+          <h2 class="text-3xl font-bold text-pink-600 mb-4">Nosso Cardápio</h2>
+          <p class="text-gray-600 mb-6">
+            Confira todos os nossos sabores exclusivos, combos e sobremesas especiais no nosso cardápio digital em PDF.
+          </p>
 
-    <!-- Informações do Cardápio -->
-    <div>
-      <h2 class="text-3xl font-bold text-pink-600 mb-4">Nosso Cardápio</h2>
-      <p class="text-gray-600 mb-6">
-        Confira todos os nossos sabores exclusivos, combos e sobremesas especiais no nosso cardápio digital em PDF.
-      </p>
+          <div class="flex gap-4">
+            <!-- Botão para baixar o PDF -->
+            <a href="ICE GELATO (1).pdf" download 
+               class="bg-pink-600 hover:bg-pink-700 text-white px-5 py-3 rounded-lg shadow">
+              📥 Baixar PDF
+            </a>
+            <!-- Botão para visualizar online -->
+            <a href="ICE GELATO (1).pdf" target="_blank" 
+               class="border border-pink-600 text-pink-600 hover:bg-pink-50 px-5 py-3 rounded-lg shadow">
+              👁 Visualizar Online
+            </a>
+          </div>
 
-      <div class="flex gap-4">
-        <!-- Botão para baixar o PDF -->
-        <a href="ICE GELATO (1).pdf" download 
-           class="bg-pink-600 hover:bg-pink-700 text-white px-5 py-3 rounded-lg shadow">
-          📥 Baixar PDF
-        </a>
-        <!-- Botão para visualizar online -->
-        <a href="ICE GELATO (1).pdf" target="_blank" 
-           class="border border-pink-600 text-pink-600 hover:bg-pink-50 px-5 py-3 rounded-lg shadow">
-          👁 Visualizar Online
-        </a>
+          <!-- Estatísticas opcionais -->
+          <div class="mt-8 grid grid-cols-3 gap-6 text-center">
+            <div>
+              <p class="text-2xl font-bold text-pink-600">+50</p>
+              <p class="text-gray-500 text-sm">Sabores</p>
+            </div>
+            <div>
+              <p class="text-2xl font-bold text-pink-600">+20</p>
+              <p class="text-gray-500 text-sm">Combos</p>
+            </div>
+            <div>
+              <p class="text-2xl font-bold text-pink-600">100%</p>
+              <p class="text-gray-500 text-sm">Artesanal</p>
+            </div>
+          </div>
+        </div>
       </div>
-
-      <!-- Estatísticas opcionais -->
-      <div class="mt-8 grid grid-cols-3 gap-6 text-center">
-        <div>
-          <p class="text-2xl font-bold text-pink-600">+50</p>
-          <p class="text-gray-500 text-sm">Sabores</p>
-        </div>
-        <div>
-          <p class="text-2xl font-bold text-pink-600">+20</p>
-          <p class="text-gray-500 text-sm">Combos</p>
-        </div>
-        <div>
-          <p class="text-2xl font-bold text-pink-600">100%</p>
-          <p class="text-gray-500 text-sm">Artesanal</p>
-        </div>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-
+    </section>
 
     <!-- AVALIAÇÕES -->
     <section id="avaliacoes" class="py-20">
@@ -252,7 +246,7 @@
         <h2 class="text-3xl font-bold text-primary text-center">Avaliações dos Clientes</h2>
         <p class="mt-2 text-gray-600 text-center max-w-2xl mx-auto">O que nossos clientes dizem sobre a experiência Gelato Premium</p>
 
-        <div class="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div id="reviewsContainer" class="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <!-- Avaliações serão carregadas aqui -->
         </div>
 
@@ -285,9 +279,8 @@
               <option value="Chocolate Belga">Chocolate Belga</option>
               <option value="Creme & Baunilha">Creme & Baunilha</option>
               <option value="Pistache Especial">Pistache Especial</option>
-              <option value="Pistache Especial">Cookies & Cream</option>
-              <option value="Pistache Especial">Coco</option>
-
+              <option value="Cookies & Cream">Cookies & Cream</option>
+              <option value="Coco">Coco</option>
             </select>
 
             <textarea name="review" required rows="4" placeholder="Conte sua experiência..." 
@@ -395,6 +388,9 @@
         <button id="btnTestConnection" class="w-full bg-blue-500 text-white py-2 rounded text-sm mb-2">
           Testar Conexão Firebase
         </button>
+        <button id="btnAddSampleReviews" class="w-full bg-green-500 text-white py-2 rounded text-sm">
+          Adicionar Avaliações Exemplo
+        </button>
       </div>
     </div>
   </div>
@@ -411,7 +407,9 @@
       collection, 
       addDoc, 
       getDocs,
-      serverTimestamp
+      serverTimestamp,
+      orderBy,
+      query
     } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
 
     const firebaseConfig = {
@@ -445,7 +443,7 @@
       }
     }
 
-    // Carrega produtos do Firebase (SEM ordenação para evitar erro de índice)
+    // Carrega produtos do Firebase
     async function loadProducts() {
       const productsContainer = document.getElementById('productsContainer');
       
@@ -490,6 +488,46 @@
       }
     }
 
+    // Carrega avaliações do Firebase
+    async function loadReviews() {
+      const reviewsContainer = document.getElementById('reviewsContainer');
+      
+      try {
+        console.log("📥 Carregando avaliações do Firebase...");
+        const q = query(collection(db, 'reviews'), orderBy('createdAt', 'desc'));
+        const querySnapshot = await getDocs(q);
+        
+        if (querySnapshot.empty) {
+          reviewsContainer.innerHTML = `
+            <div class="col-span-full text-center py-12">
+              <i class="fas fa-star text-4xl text-primary mb-4"></i>
+              <p class="text-gray-600">Nenhuma avaliação ainda.</p>
+              <p class="text-sm text-gray-500 mt-2">Seja o primeiro a avaliar nossos produtos!</p>
+            </div>
+          `;
+          return;
+        }
+        
+        let reviewsHTML = '';
+        querySnapshot.forEach((doc) => {
+          const review = doc.data();
+          reviewsHTML += createReviewCard(review);
+        });
+        
+        reviewsContainer.innerHTML = reviewsHTML;
+        console.log(`✅ ${querySnapshot.size} avaliações carregadas do Firebase`);
+        
+      } catch (error) {
+        console.error("❌ Erro ao carregar avaliações:", error);
+        reviewsContainer.innerHTML = `
+          <div class="col-span-full text-center py-12 text-red-600">
+            <i class="fas fa-exclamation-triangle text-4xl mb-4"></i>
+            <p>Erro ao carregar avaliações: ${error.message}</p>
+          </div>
+        `;
+      }
+    }
+
     // Cria card de produto
     function createProductCard(product, id) {
       return `
@@ -506,6 +544,32 @@
               ${product.tags ? product.tags.map(tag => `<span class="flavor-tag">${tag}</span>`).join('') : ''}
             </div>
             ${product.description ? `<p class="mt-2 text-xs text-gray-500 text-center">${product.description}</p>` : ''}
+          </div>
+        </div>
+      `;
+    }
+
+    // Cria card de avaliação
+    function createReviewCard(review) {
+      const stars = '★'.repeat(review.rating) + '☆'.repeat(5 - review.rating);
+      
+      return `
+        <div class="bg-white p-6 rounded-xl shadow-lg review-card fade-in">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 bg-primary rounded-full flex items-center justify-center text-white font-semibold">
+              ${review.name.charAt(0).toUpperCase()}
+            </div>
+            <div>
+              <h4 class="font-semibold">${review.name}</h4>
+              <div class="star-rating">
+                ${stars}
+              </div>
+            </div>
+          </div>
+          <p class="text-gray-600 text-sm mb-3">"${review.review}"</p>
+          <div class="flex justify-between items-center text-xs text-gray-500">
+            <span class="flavor-tag">${review.product}</span>
+            <span>${review.createdAt?.toDate?.().toLocaleDateString('pt-BR') || 'Data não disponível'}</span>
           </div>
         </div>
       `;
@@ -562,6 +626,51 @@
       }
     }
 
+    // Adiciona avaliações de exemplo
+    async function addSampleReviews() {
+      const sampleReviews = [
+        {
+          name: "Maria Silva",
+          email: "maria@email.com",
+          rating: 5,
+          product: "Morango Premium",
+          review: "O sorvete mais cremoso que já provei! Os morangos são fresquíssimos.",
+          createdAt: serverTimestamp()
+        },
+        {
+          name: "João Santos",
+          email: "joao@email.com",
+          rating: 4,
+          product: "Chocolate Belga",
+          review: "Chocolate de alta qualidade, muito saboroso. Recomendo!",
+          createdAt: serverTimestamp()
+        },
+        {
+          name: "Ana Costa",
+          email: "ana@email.com",
+          rating: 5,
+          product: "Creme & Baunilha",
+          review: "Perfeito! Textura incrível e sabor autêntico da baunilha.",
+          createdAt: serverTimestamp()
+        }
+      ];
+
+      try {
+        console.log("🔄 Adicionando avaliações de exemplo...");
+        
+        for (const review of sampleReviews) {
+          await addDoc(collection(db, 'reviews'), review);
+        }
+        
+        console.log("✅ Avaliações de exemplo adicionadas!");
+        alert("🎉 Avaliações adicionadas com sucesso! Recarregue a página para ver.");
+        
+      } catch (error) {
+        console.error("❌ Erro ao adicionar avaliações:", error);
+        alert(`❌ Erro ao adicionar avaliações: ${error.message}`);
+      }
+    }
+
     // Adiciona um produto individual
     async function addProduct(productData) {
       try {
@@ -576,6 +685,20 @@
       }
     }
 
+    // Adiciona uma avaliação
+    async function addReview(reviewData) {
+      try {
+        await addDoc(collection(db, 'reviews'), {
+          ...reviewData,
+          createdAt: serverTimestamp()
+        });
+        return true;
+      } catch (error) {
+        console.error("Erro ao adicionar avaliação:", error);
+        throw error;
+      }
+    }
+    
     // Sistema de estrelas para avaliações
     function initStarRating() {
       const stars = document.querySelectorAll('#starRating i');
@@ -652,6 +775,7 @@
       const addProductForm = document.getElementById('addProductForm');
       const btnAddSample = document.getElementById('btnAddSample');
       const btnTestConnection = document.getElementById('btnTestConnection');
+      const btnAddSampleReviews = document.getElementById('btnAddSampleReviews');
       
       adminToggle.addEventListener('click', () => {
         adminMenu.classList.toggle('hidden');
@@ -683,6 +807,10 @@
 
       btnAddSample.addEventListener('click', async () => {
         await addSampleProducts();
+      });
+
+      btnAddSampleReviews.addEventListener('click', async () => {
+        await addSampleReviews();
       });
 
       btnTestConnection.addEventListener('click', async () => {
@@ -817,7 +945,7 @@
         const form = e.target;
         const name = form.name.value.trim();
         const email = form.email.value.trim();
-        const rating = form.rating.value;
+        const rating = parseInt(form.rating.value);
         const product = form.product.value;
         const review = form.review.value.trim();
         
@@ -835,8 +963,14 @@
         submitBtn.disabled = true;
 
         try {
-          // Simula envio
-          await new Promise(resolve => setTimeout(resolve, 1000));
+          // Salva no Firebase
+          await addReview({
+            name,
+            email,
+            rating,
+            product,
+            review
+          });
           
           reviewFeedback.textContent = '✅ Avaliação enviada com sucesso! Obrigado.';
           reviewFeedback.className = 'text-sm text-green-600 transition-opacity';
@@ -847,6 +981,9 @@
             star.classList.replace('fas', 'far');
           });
           document.getElementById('ratingValue').value = '';
+          
+          // Recarrega as avaliações
+          await loadReviews();
           
           setTimeout(() => { 
             reviewFeedback.style.opacity = '0'; 
@@ -879,8 +1016,9 @@
       // Testa conexão primeiro
       await testFirebaseConnection();
       
-      // Carrega produtos
+      // Carrega produtos e avaliações
       await loadProducts();
+      await loadReviews();
       
       // Inicializa sistema de estrelas
       initStarRating();
@@ -890,6 +1028,10 @@
       
       // Inicializa painel admin
       initAdminPanel();
+      
+      // Configura formulários
+      setupContactForm();
+      setupReviewForm();
       
       console.log("🎉 Sistema inicializado com sucesso!");
     });
