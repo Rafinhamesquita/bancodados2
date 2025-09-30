@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Gelato Premium</title>
+  <title>Ice Gelato</title>
 
   <!-- Tailwind (CDN, bom para protótipo) -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -81,14 +81,12 @@
 
   <!-- HEADER -->
 
-  <a href="#cardapio" class="hover:text-pink-600">Cardápio</a>
-
   <header class="fixed top-0 left-0 right-0 z-50">
     <div class="backdrop-blur-md bg-white/40 border-b">
       <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
         <a href="#inicio" class="flex items-center gap-3">
-          <img src="https://cdn-icons-png.flaticon.com/512/415/415733.png" alt="logo" class="w-10 h-10 floating" />
-          <span class="font-bold text-lg text-primary">Gelato Premium</span>
+          <img src="logo.png" alt="logo" class="w-10 h-10 floating" />
+          <span class="font-bold text-lg text-primary">Ice Gelato</span>
         </a>
 
         <!-- Desktop nav -->
@@ -96,8 +94,10 @@
           <ul class="flex gap-8 items-center font-medium">
             <li><a class="hover:text-primary transition-colors" href="#sobre">Sobre</a></li>
             <li><a class="hover:text-primary transition-colors" href="#produtos">Produtos</a></li>
+            <li><a class="hover:text-primary transition-colors" href="#cardapio">Cardápio</a></li>
             <li><a class="hover:text-primary transition-colors" href="#avaliacoes">Avaliações</a></li>
             <li><a class="hover:text-primary transition-colors" href="#contato">Contato</a></li>
+            
           </ul>
         </nav>
 
@@ -125,11 +125,11 @@
 
     <!-- HERO -->
     <section id="inicio" class="relative min-h-[78vh] flex items-center">
-      <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1600&q=80')] bg-cover bg-center"></div>
+      <div class="absolute inset-0 bg-[url('fundo.png')] bg-cover bg-center"></div>
       <div class="absolute inset-0 hero-overlay"></div>
 
       <div class="relative z-10 max-w-6xl mx-auto px-6 text-center text-white">
-        <h1 class="text-4xl md:text-6xl font-extrabold leading-tight drop-shadow-lg">Gelato Premium</h1>
+        <h1 class="text-4xl md:text-6xl font-extrabold leading-tight drop-shadow-lg">Ice Gelato</h1>
         <p class="mt-4 text-lg md:text-xl max-w-2xl mx-auto drop-shadow">Sabores artesanais que despertam memórias — direto do coração de Paranaguá.</p>
 
         <div class="mt-8 flex flex-wrap justify-center gap-4">
@@ -201,7 +201,7 @@
     
     <!-- Preview do Cardápio -->
     <div class="flex justify-center">
-      <img src="cardápio.png" alt="Prévia do Cardápio" class="rounded-2xl shadow-lg w-80">
+      <img src="ICE GELATO.png" alt="Prévia do Cardápio" class="rounded-2xl shadow-lg w-80">
     </div>
 
     <!-- Informações do Cardápio -->
@@ -212,11 +212,13 @@
       </p>
 
       <div class="flex gap-4">
-        <a href="docs/cardapio.pdf" download 
+        <!-- Botão para baixar o PDF -->
+        <a href="ICE GELATO (1).pdf" download 
            class="bg-pink-600 hover:bg-pink-700 text-white px-5 py-3 rounded-lg shadow">
           📥 Baixar PDF
         </a>
-        <a href="cardápio.pdf" target="_blank" 
+        <!-- Botão para visualizar online -->
+        <a href="ICE GELATO (1).pdf" target="_blank" 
            class="border border-pink-600 text-pink-600 hover:bg-pink-50 px-5 py-3 rounded-lg shadow">
           👁 Visualizar Online
         </a>
@@ -241,6 +243,7 @@
 
   </div>
 </section>
+
 
 
     <!-- AVALIAÇÕES -->
@@ -282,7 +285,9 @@
               <option value="Chocolate Belga">Chocolate Belga</option>
               <option value="Creme & Baunilha">Creme & Baunilha</option>
               <option value="Pistache Especial">Pistache Especial</option>
-              <option value="Outro">Outro</option>
+              <option value="Pistache Especial">Cookies & Cream</option>
+              <option value="Pistache Especial">Coco</option>
+
             </select>
 
             <textarea name="review" required rows="4" placeholder="Conte sua experiência..." 
@@ -307,12 +312,12 @@
           <div class="mt-8 space-y-4">
             <div class="flex items-center gap-4">
               <i class="fas fa-phone text-primary text-2xl"></i>
-              <div><div class="font-semibold">Telefone</div><div class="text-gray-600">(41) 3422-1234</div></div>
+              <div><div class="font-semibold">Telefone</div><div class="text-gray-600">(41) 99149-4538</div></div>
             </div>
 
             <div class="flex items-center gap-4">
               <i class="fas fa-map-marker-alt text-primary text-2xl"></i>
-              <div><div class="font-semibold">Endereço</div><div class="text-gray-600">Rua XV de Novembro, 123 — Paranaguá - PR</div></div>
+              <div><div class="font-semibold">Endereço</div><div class="text-gray-600">Rua XV de Abril, S/N — Paranaguá - PR</div></div>
             </div>
 
             <div class="flex items-center gap-4">
